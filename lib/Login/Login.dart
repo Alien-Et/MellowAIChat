@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mellowai/Login/Controller.dart';
+import 'package:get/get.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Login extends StatelessWidget {
+  Login({super.key});
 
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  final TextEditingController emailct = TextEditingController();
-  final TextEditingController passwdct = TextEditingController();
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 32),
                 TextField(
-                  controller: emailct,
+                  controller: controller.email,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(0x80F6F6F6),
@@ -55,7 +51,7 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 16),
                 TextField(
-                  controller: passwdct,
+                  controller: controller.passwd,
                   obscureText: true,
                   decoration: InputDecoration(
                     filled: true,
