@@ -10,10 +10,12 @@ class LoginController extends GetxController {
   Future<void> login() async {
     isLoading.value = true;
     final response = await ReqService.login(email.text, passwd.text);
+    isLoading.value = false;
     if (response.statusCode == 200) {
-      isLoading.value = false;
+      //登录成功
+
     } else {
-      isLoading.value = false;
+
     }
   }
 

@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Enter to continue',
+                  'Login to continue',
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xFF7B7BA5),
@@ -76,9 +76,9 @@ class Login extends StatelessWidget {
                       ),
                       elevation: 4,
                     ),
-                    onPressed: () {},
+                    onPressed: (){controller.login();},
                     child: const Text(
-                      'Enter',
+                      'Login',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
