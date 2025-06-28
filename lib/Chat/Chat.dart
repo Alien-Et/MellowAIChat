@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'menu.dart' as menu;
+import 'Menu/Menu.dart' as menu;
 
 class ChatPage extends StatelessWidget {
   ChatPage({super.key});

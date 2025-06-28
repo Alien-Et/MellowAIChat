@@ -115,7 +115,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {Get.offNamed('/signup');},
                       child: const Text(
                         'Sign up',
                         style: TextStyle(
