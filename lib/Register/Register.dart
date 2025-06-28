@@ -19,8 +19,8 @@ class RegisterPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 80),
-                const Text(
-                  'Register',
+                 Text(
+                  'register'.tr,
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
@@ -28,13 +28,13 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 48),
-                _buildTextField(hint: 'Name',controller: controller.username),
+                _buildTextField(hint: 'name'.tr,controller: controller.username),
                 const SizedBox(height: 16),
-                _buildTextField(hint: 'E-mail',controller: controller.email),
+                _buildTextField(hint: 'email'.tr,controller: controller.email),
                 const SizedBox(height: 16),
-                _buildTextField(hint: 'Password', obscure: true,controller: controller.passwd),
+                _buildTextField(hint: 'password'.tr, obscure: true,controller: controller.passwd),
                 const SizedBox(height: 16),
-                _buildTextField(hint: 'Confirm Password', obscure: true,controller: controller.cpasswd),
+                _buildTextField(hint: 'confirm_password'.tr, obscure: true,controller: controller.cpasswd),
                 const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
@@ -48,8 +48,8 @@ class RegisterPage extends StatelessWidget {
                       elevation: 0,
                     ),
                     onPressed: () {controller.Verity();},
-                    child: const Text(
-                      'Subscribe',
+                    child:  Text(
+                      'subscribe'.tr,
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -63,8 +63,8 @@ class RegisterPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'Do you have an account? ',
+                     Text(
+                      'do_you_have_account'.tr,
                       style: TextStyle(
                         color: Color(0xFF7B7BA5),
                         fontSize: 15,
@@ -72,8 +72,8 @@ class RegisterPage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {Get.offNamed('/login');},
-                      child: const Text(
-                        'Log in',
+                      child:  Text(
+                        'log_in'.tr,
                         style: TextStyle(
                           color: Color(0xFF5B5B8C),
                           fontWeight: FontWeight.bold,

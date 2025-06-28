@@ -3,6 +3,7 @@ import 'package:mellowai/Login/Login.dart';
 import 'package:get/get.dart';
 import 'package:mellowai/Register/Register.dart';
 import 'Chat/Chat.dart';
+import 'i18n.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,10 +12,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: AppTranslations(),
+      locale: const Locale('zh', 'CN'),
+      fallbackLocale: const Locale('en', 'US'),
       initialRoute: '/login',
       getPages: [
         GetPage(name: '/login', page: ()=> Login()),
@@ -22,6 +25,5 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/chat', page: ()=> ChatPage())
       ],
     );
-
   }
 }

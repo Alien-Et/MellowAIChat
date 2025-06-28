@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../Setting/Settings.dart';
 
 class MenuController extends GetxController {
   void showMenu(BuildContext context) {
@@ -13,7 +14,6 @@ class MenuController extends GetxController {
   }
 }
 
-// View
 class MenuView extends StatelessWidget {
   const MenuView({super.key});
 
@@ -25,21 +25,24 @@ class MenuView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Menus', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text('menus_title'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('Setting'),
-            onTap: () {},
+            title: Text('settings'.tr),
+            onTap: () {
+              Get.back();
+              Get.to(() => const SettingsView());
+            },
           ),
           ListTile(
             leading: const Icon(Icons.language),
-            title: const Text('Language'),
+            title: Text('language'.tr),
             onTap: () {},
           ),
           ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: const Text('About'),
+            leading: const Icon(Icons.exit_to_app),
+            title: Text('sign_out'.tr),
             onTap: () {},
           ),
         ],

@@ -20,7 +20,7 @@ class Login extends StatelessWidget {
               children: [
                 const SizedBox(height: 40),
                 Text(
-                  'Welcome',
+                  'welcome'.tr,
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
@@ -29,7 +29,7 @@ class Login extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Login to continue',
+                  'login_to_continue'.tr,
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xFF7B7BA5),
@@ -41,7 +41,7 @@ class Login extends StatelessWidget {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(0x80F6F6F6),
-                    hintText: 'E-mail',
+                    hintText: 'email'.tr,
                     hintStyle: TextStyle(color: Color(0xFFB8B8D1)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -56,7 +56,7 @@ class Login extends StatelessWidget {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(0x80F6F6F6),
-                    hintText: 'Password',
+                    hintText: 'password'.tr,
                     hintStyle: TextStyle(color: Color(0xFFB8B8D1)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -77,8 +77,8 @@ class Login extends StatelessWidget {
                       elevation: 4,
                     ),
                     onPressed: (){controller.login();},
-                    child: const Text(
-                      'Login',
+                    child: Text(
+                      'login'.tr,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -92,8 +92,8 @@ class Login extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      'Forget the password?',
+                    child:  Text(
+                      'forget_password'.tr,
                       style: TextStyle(
                         color: Color(0xFFB0B0D0),
                         fontSize: 13,
@@ -107,8 +107,8 @@ class Login extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      'IS NO ACCOUNT? ',
+                     Text(
+                      'is_no_account'.tr,
                       style: TextStyle(
                         color: Color(0xFFB0B0D0),
                         fontSize: 14,
@@ -116,8 +116,8 @@ class Login extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {Get.offNamed('/signup');},
-                      child: const Text(
-                        'Sign up',
+                      child:  Text(
+                        'sign_up'.tr,
                         style: TextStyle(
                           color: Color(0xFF5B5B8C),
                           fontWeight: FontWeight.bold,
