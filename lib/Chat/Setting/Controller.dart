@@ -23,6 +23,5 @@ class SettingsController extends GetxController {
     final pref = await SharedPreferences.getInstance();
     await pref.setString('token', token.value);
     await pref.setString('model', model.value);
-    print(pref);
   }
 }

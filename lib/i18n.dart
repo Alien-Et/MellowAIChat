@@ -62,14 +62,6 @@ class AppTranslations extends Translations {
       'sign_up': '注册',
       // Chat
       'how_can_i_help': '有什么可以帮您？',
-      'brainstorm_names': '头脑风暴名字',
-      'brainstorm_names_sub': '为我的青蛙主题梦幻足球队起名',
-      'suggest_codenames': '建议项目代号',
-      'suggest_codenames_sub': '为弹性工作制项目建议代号',
-      'write_sql': '写一个SQL语句',
-      'write_sql_sub': '为orders表添加status字段',
-      'explain_popcorn': '解释爆米花为什么会爆',
-      'explain_popcorn_sub': '给喜欢看微波炉爆米花的小孩解释',
       'ask_anything': '问我任何问题...',
       // Settings
       'settings': '设置',

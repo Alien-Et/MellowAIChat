@@ -4,8 +4,12 @@ import 'package:get/get.dart';
 import 'package:mellowai/Register/Register.dart';
 import 'Chat/Chat.dart';
 import 'i18n.dart';
+import 'Chat/Setting/Controller.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final settingsController = Get.put(SettingsController());
+  await settingsController.LoadConfig();
   runApp(MyApp());
 }
 

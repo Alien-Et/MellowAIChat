@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Model.dart';
 import 'package:get/get.dart';
-import 'package:mellowai/Chat/Chat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
   Future<void> Token(String token) async {
@@ -25,10 +24,5 @@ class LoginController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    email.dispose();
-    passwd.dispose();
-    super.onClose();
-  }
+
 }

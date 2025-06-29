@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'Model.dart';
 import 'package:get/get.dart';
-import 'Model.dart';
+
 
 
 class Register extends GetxController {

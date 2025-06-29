@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:mellowai/Chat/Setting/Controller.dart';
 import 'package:mellowai/Chat/Setting/Settings.dart';
 
 class MenuController extends GetxController {

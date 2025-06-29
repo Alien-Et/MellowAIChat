@@ -4,7 +4,7 @@ import 'dart:convert';
 class ReqService {
   static Future<http.Response> Register(String username,String email,String password)async{
     final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/register'),
+        Uri.parse('http://api.huawii.com/api/register'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,

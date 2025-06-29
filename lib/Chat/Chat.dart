@@ -2,12 +2,68 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Menu/Menu.dart' as menu;
 import 'Controller.dart';
+import 'Setting/Controller.dart';
+import 'Model.dart';
+import 'dart:convert';
 
 class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   final menu.MenuController menuController = Get.put(menu.MenuController());
   final ChatController chatController = Get.put(ChatController());
+  final SettingsController settingsController = Get.put(SettingsController());
+
+  Future<void> handleSend() async {
+    final token = settingsController.token.value;
+    final model = settingsController.model.value.isNotEmpty ? settingsController.model.value : "Qwen/Qwen2.5-VL-72B-Instruct";
+    final content = chatController.ask.text.trim();
+    if (content.isEmpty) return;
+
+
+    chatController.messages.add(ChatMessage(role: 'user', content: content));
+    chatController.ask.clear();
+
+    final contextMessages = <Map<String, String>>[];
+    final history = chatController.messages.length > 20
+        ? chatController.messages.sublist(chatController.messages.length - 20)
+        : List<ChatMessage>.from(chatController.messages);
+    for (final msg in history) {
+      contextMessages.add({
+        'role': msg.role,
+        'content': msg.content,
+      });
+    }
+    contextMessages.add({'role': 'user', 'content': content});
+
+    chatController.messages.add(ChatMessage(role: 'assistant', content: ''));
+    int aiIndex = chatController.messages.length - 1;
+    String aiContent = '';
+
+
+    await for (final msg in ChatApi.sendChatRequestStream(
+      token: token,
+      model: model,
+      content: '',
+      messages: contextMessages,
+      stream: true,
+      maxTokens: 512,
+      enableThinking: true,
+      thinkingBudget: 4096,
+      minP: 0.05,
+      temperature: 0.7,
+      topP: 0.7,
+      topK: 50,
+      frequencyPenalty: 0.5,
+      n: 1,
+      stop: const [],
+    )) {
+      if (msg.role == 'assistant') {
+        aiContent += msg.content;
+        chatController.messages[aiIndex] = ChatMessage(role: 'assistant', content: aiContent);
+        chatController.messages.refresh();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,38 +92,26 @@ class ChatPage extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 80),
-            child: ListView(
+            child: Obx(() => ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 18),
-              children: [
-                const SizedBox(height: 24),
-                 Text(
-                  'how_can_i_help'.tr,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF23233C),
+              itemCount: chatController.messages.length,
+              itemBuilder: (context, index) {
+                final msg = chatController.messages[index];
+                final isUser = msg.role == 'user';
+                return Align(
+                  alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 6),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: isUser ? Colors.blue[100] : Colors.grey[200],
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(msg.content),
                   ),
-                  textAlign: TextAlign.left,
-                ),
-                const SizedBox(height: 28),
-                _buildCard(
-                  title: 'brainstorm_names'.tr,
-                  subtitle: 'brainstorm_names_sub'.tr,
-                ),
-                _buildCard(
-                  title: 'suggest_codenames'.tr,
-                  subtitle: 'suggest_codenames_sub'.tr,
-                ),
-                _buildCard(
-                  title: 'write_sql'.tr,
-                  subtitle: 'write_sql_sub'.tr,
-                ),
-                _buildCard(
-                  title: 'explain_popcorn'.tr,
-                  subtitle: 'explain_popcorn_sub'.tr,
-                ),
-              ],
-            ),
+                );
+              },
+            )),
           ),
           Positioned(
             left: 0,
@@ -108,7 +152,7 @@ class ChatPage extends StatelessWidget {
                     elevation: 4,
                     child: InkWell(
                       customBorder: const CircleBorder(),
-                      onTap: () {},
+                      onTap: handleSend,
                       child: const Padding(
                         padding: EdgeInsets.all(14.0),
                         child: Icon(Icons.send, color: Colors.white, size: 26),
@@ -120,46 +164,6 @@ class ChatPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCard({required String title, required String subtitle}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(4),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-        title: Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17, color: Color(0xFF23233C)),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: Text(
-            subtitle,
-            style: const TextStyle(fontSize: 14, color: Color(0xFF7B7BA5)),
-          ),
-        ),
-        trailing: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFFF1EDFD),
-            shape: BoxShape.circle,
-          ),
-          padding: const EdgeInsets.all(8),
-          child: const Icon(Icons.arrow_forward_ios, color: Color(0xFF7C4DFF), size: 18),
-        ),
-        onTap: () {},
       ),
     );
   }
