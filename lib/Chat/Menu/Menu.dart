@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import '../Setting/Settings.dart';
+import 'package:mellowai/Chat/Setting/Settings.dart';
 
 class MenuController extends GetxController {
+
   void showMenu(BuildContext context) {
     Get.bottomSheet(
       const MenuView(),
@@ -30,10 +31,11 @@ class MenuView extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: Text('settings'.tr),
-            onTap: () {
-              Get.back();
-              Get.to(() => const SettingsView());
-            },
+            onTap: () {showDialog(
+              context: context,
+              builder: (context) =>  Settings(),
+            );
+              },
           ),
           ListTile(
             leading: const Icon(Icons.language),

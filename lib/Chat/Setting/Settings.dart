@@ -1,72 +1,82 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class SettingsView extends StatelessWidget {
-  const SettingsView({super.key});
+class Settings extends StatelessWidget {
+  const Settings({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('settings'.tr, style: TextStyle(color: Color(0xFF23233C), fontWeight: FontWeight.bold)),
-        backgroundColor: const Color(0xFFF7F8FA),
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Color(0xFF23233C)),
-      ),
-      backgroundColor: const Color(0xFFF7F8FA),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
+    return Dialog(
+      insetPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 80),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
+            const Text('设置', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             const SizedBox(height: 24),
-             Text('api_url'.tr, style: TextStyle(fontSize: 16, color: Color(0xFF5B5B8C))),
-            const SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'api_url_hint'.tr,
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('模型提供方:', style: TextStyle(fontSize: 16)),
             ),
-            const SizedBox(height: 24),
-             Text('token'.tr, style: TextStyle(fontSize: 16, color: Color(0xFF5B5B8C))),
             const SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'token_hint'.tr,
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              ),
-            ),
-            const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
-              height: 48,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF5B5B8C),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  elevation: 0,
-                ),
-                onPressed: () {},
-                child:  Text(
-                  'save'.tr,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-                ),
+              child: DropdownButtonFormField<String>(
+                isExpanded: true,
+                value: 'deepseek-ai/DeepSeek-V3',
+                items: const [
+                  DropdownMenuItem(value: 'deepseek-ai/DeepSeek-V3', child: Text('deepseek-ai/DeepSeek-V3')),
+                ],
+                onChanged: (v) {},
+                decoration: const InputDecoration(border: OutlineInputBorder()),
               ),
+            ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('API 密钥', style: TextStyle(fontSize: 16)),
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.visibility),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text('模型', style: TextStyle(fontSize: 16)),
+            ),
+            const SizedBox(height: 8),
+            DropdownButtonFormField<String>(
+              isExpanded: true,
+              value: 'deepseek-ai/DeepSeek-V3',
+              items: const [
+                DropdownMenuItem(value: 'deepseek-ai/DeepSeek-V3', child: Text('deepseek-ai/DeepSeek-V3')),
+              ],
+              onChanged: (v) {},
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+            ),
+
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('取消'),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('保存'),
+                ),
+              ],
             ),
           ],
         ),
