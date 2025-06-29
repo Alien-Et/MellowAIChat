@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'Menu/Menu.dart' as menu;
+import 'Controller.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage({super.key});
 
   final menu.MenuController menuController = Get.put(menu.MenuController());
+  final ChatController chatController = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,8 @@ class ChatPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 18),
               children: [
                 const SizedBox(height: 24),
-                const Text(
-                  'How can I help you my friend?',
+                 Text(
+                  'how_can_i_help'.tr,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w600,
@@ -49,20 +51,20 @@ class ChatPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 28),
                 _buildCard(
-                  title: 'Brainstorm names',
-                  subtitle: 'for my fantasy football team with a frog theme',
+                  title: 'brainstorm_names'.tr,
+                  subtitle: 'brainstorm_names_sub'.tr,
                 ),
                 _buildCard(
-                  title: 'Suggest some codenames',
-                  subtitle: 'for a project introducing flexible work arrangements',
+                  title: 'suggest_codenames'.tr,
+                  subtitle: 'suggest_codenames_sub'.tr,
                 ),
                 _buildCard(
-                  title: 'Write a SQL query',
-                  subtitle: 'that adds a "status" column to an "orders" table',
+                  title: 'write_sql'.tr,
+                  subtitle: 'write_sql_sub'.tr,
                 ),
                 _buildCard(
-                  title: 'Explain why popcorn pops',
-                  subtitle: 'to a kid who loves watching it in the microwave',
+                  title: 'explain_popcorn'.tr,
+                  subtitle: 'explain_popcorn_sub'.tr,
                 ),
               ],
             ),
@@ -90,8 +92,9 @@ class ChatPage extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: chatController.ask,
                         decoration: InputDecoration(
-                          hintText: 'Ask me anything...',
+                          hintText: 'ask_anything'.tr,
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                         ),
