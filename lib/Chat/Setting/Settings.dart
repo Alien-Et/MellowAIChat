@@ -142,51 +142,56 @@ class _SettingsState extends State<Settings> {
                                   child: Text('模型', style: TextStyle(fontSize: 16)),
                                 ),
                                 const SizedBox(height: 8),
-                                Obx(() => DropdownButtonFormField<String>(
-                                  isExpanded: true,
-                                  value: settingsController.model.value.isEmpty ? null : settingsController.model.value,
-                                  items: settingsModel.models.isEmpty
-                                      ? const [
-                                          DropdownMenuItem(
-                                            value: 'deepseek-ai/DeepSeek-V3',
-                                            child: Text('deepseek-ai/DeepSeek-V3'),
-                                          )
-                                        ]
-                                      : settingsModel.models
-                                          .map((m) => DropdownMenuItem(
-                                                value: m.id,
-                                                child: Text(
-                                                  m.id,
-                                                  style: const TextStyle(fontSize: 16),
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ))
-                                          .toList(),
-                                  onChanged: (v) => settingsController.model.value = v ?? '',
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(color: Colors.blue, width: 2),
+                                Obx(() {
+                                  final modelList = settingsModel.models;
+                                  final value = modelList.any((m) => m.id == settingsController.model.value)
+                                      ? settingsController.model.value
+                                      : null;
+                                  return DropdownButtonFormField<String>(
+                                    isExpanded: true,
+                                    value: value,
+                                    items: modelList.isEmpty
+                                        ? const [
+                                            DropdownMenuItem(
+                                              value: 'deepseek-ai/DeepSeek-V3',
+                                              child: Text('deepseek-ai/DeepSeek-V3'),
+                                            )
+                                          ]
+                                        : modelList
+                                            .map((m) => DropdownMenuItem(
+                                                  value: m.id,
+                                                  child: Text(
+                                                    m.id,
+                                                    style: const TextStyle(fontSize: 16),
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ))
+                                            .toList(),
+                                    onChanged: (v) => settingsController.model.value = v ?? '',
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(color: Colors.blue, width: 2),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(color: Colors.grey, width: 1.2),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(color: Colors.blue, width: 2),
+                                      ),
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                                     ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(color: Colors.grey, width: 1.2),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(color: Colors.blue, width: 2),
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                                  ),
-                                  dropdownColor: Colors.white,
-                                  icon: const Icon(Icons.arrow_drop_down, size: 28),
-                                  itemHeight: 48,
-                                  borderRadius: BorderRadius.circular(12),
-                                  menuMaxHeight: 320,
-                                  style: const TextStyle(fontSize: 16, color: Colors.black87),
-                                )),
+                                    dropdownColor: Colors.white,
+                                    icon: const Icon(Icons.arrow_drop_down, size: 28),
+                                    itemHeight: 48,
+                                    borderRadius: BorderRadius.circular(12),
+                                    menuMaxHeight: 320,
+                                    style: const TextStyle(fontSize: 16, color: Colors.black87),
+                                  );
+                                }),
                                 const SizedBox(height: 24),
-                                
 
                                 Align(
                                   alignment: Alignment.centerLeft,
@@ -214,7 +219,56 @@ class _SettingsState extends State<Settings> {
                           SingleChildScrollView(
                             padding: const EdgeInsets.all(16),
                             child: Column(
-                              children: [],
+                              children: [
+                                // 语言切换选择框
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('界面语言', style: TextStyle(fontSize: 16)),
+                                ),
+                                const SizedBox(height: 8),
+                                Obx(() => DropdownButtonFormField<Locale>(
+                                  isExpanded: true,
+                                  value: settingsController.locale.value,
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: Locale('zh', 'CN'),
+                                      child: Text('简体中文'),
+                                    ),
+                                    DropdownMenuItem(
+                                      value: Locale('en', 'US'),
+                                      child: Text('English'),
+                                    ),
+                                  ],
+                                  onChanged: (v) async {
+                                    if (v != null) {
+                                      settingsController.locale.value = v;
+                                      Get.updateLocale(v);
+                                      await settingsController.SaveConfig();
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(color: Colors.blue, width: 2),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(color: Colors.grey, width: 1.2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(color: Colors.blue, width: 2),
+                                    ),
+                                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                                  ),
+                                  dropdownColor: Colors.white,
+                                  icon: const Icon(Icons.language, size: 24),
+                                  itemHeight: 48,
+                                  borderRadius: BorderRadius.circular(12),
+                                  menuMaxHeight: 160,
+                                  style: const TextStyle(fontSize: 16, color: Colors.black87),
+                                )),
+                              ],
                             ),
                           ),
                           // 第三个

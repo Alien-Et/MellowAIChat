@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    final settingsController = Get.find<SettingsController>();
+    return Obx(() => GetMaterialApp(
       translations: AppTranslations(),
-      locale: const Locale('zh', 'CN'),
+      locale: settingsController.locale.value,
       fallbackLocale: const Locale('en', 'US'),
       initialRoute: '/login',
       getPages: [
@@ -28,6 +29,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/signup', page: ()=>RegisterPage()),
         GetPage(name: '/chat', page: ()=> ChatPage())
       ],
-    );
+    ));
   }
 }

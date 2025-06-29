@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Controller.dart';
 
 class ModelInfo {
@@ -18,6 +19,13 @@ class ModelInfo {
       ownedBy: json['owned_by'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'object': object,
+    'created': created,
+    'owned_by': ownedBy,
+  };
 }
 
 class SettingsModel extends GetxController {
@@ -39,6 +47,7 @@ class SettingsModel extends GetxController {
             .map((e) => ModelInfo.fromJson(e))
             .toList();
         models.assignAll(list);
+        await saveModelsToPrefs(list);
       } else {
         error.value = '请求失败: ${response.statusCode}';
       }
@@ -46,6 +55,24 @@ class SettingsModel extends GetxController {
       error.value = '请求异常: $e';
     } finally {
       loading.value = false;
+    }
+  }
+
+  Future<void> saveModelsToPrefs(List<ModelInfo> list) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonList = list.map((m) => m.toJson()).toList();
+    await prefs.setString('model_list', jsonEncode(jsonList));
+  }
+
+  Future<void> loadModelsFromPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final str = prefs.getString('model_list');
+    if (str != null && str.isNotEmpty) {
+      try {
+        final List data = jsonDecode(str);
+        final List<ModelInfo> list = data.map((e) => ModelInfo.fromJson(e)).toList();
+        models.assignAll(list);
+      } catch (_) {}
     }
   }
 }
