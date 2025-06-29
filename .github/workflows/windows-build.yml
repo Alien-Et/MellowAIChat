@@ -39,10 +39,13 @@ jobs:
           flutter build windows --release
         working-directory: ./
 
+      - name: List Build Output
+        run: dir build\windows\x64\runner\Release
+        shell: cmd
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: windows-build
-          path: |
-            build/windows/x64/runner/Release/*.exe
+          path: build/windows/x64/runner/Release/**
           retention-days: 7
