@@ -1,0 +1,62 @@
+name: Flutter CI - Build Windows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    name: Build Windows Executable
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.5'
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Flutter and Dart Versions
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Clean Project
+        run: |
+          flutter clean
+          flutter pub get
+
+      - name: Build Windows
+        run: |
+          flutter build windows --release
+        working-directory: ./
+
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup
+        shell: cmd
+
+      - name: Package with Inno Setup
+        run: |
+          iscc package.iss
+        shell: cmd
+        working-directory: ./
+
+      - name: List Build Output
+        run: dir output
+        shell: cmd
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: output/MellowAI_Installer.exe
+          retention-days: 7
