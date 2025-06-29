@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:mellowai/Chat/Setting/Settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuController extends GetxController {
 
@@ -49,7 +50,14 @@ class MenuView extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: Text('sign_out'.tr),
-            onTap: () {},
+            onTap: () async {
+              Navigator.of(context).pop();
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.remove('token');
+              await prefs.remove('model');
+              await prefs.remove('contextLimit');
+              Get.offAllNamed('/login');
+            },
           ),
         ],
       ),
