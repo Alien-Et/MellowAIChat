@@ -12,16 +12,19 @@ class SettingsTabController extends GetxController {
 class SettingsController extends GetxController {
   var token = ''.obs;
   var model = ''.obs;
+  var contextLimit = 10.obs;
 
   Future<void> LoadConfig() async {
     final pref = await SharedPreferences.getInstance();
     token.value = pref.getString('token') ?? '';
     model.value = pref.getString('model') ?? '';
+    contextLimit.value = pref.getInt('contextLimit') ?? 10;
   }
 
   Future<void> SaveConfig() async {
     final pref = await SharedPreferences.getInstance();
     await pref.setString('token', token.value);
     await pref.setString('model', model.value);
+    await pref.setInt('contextLimit', contextLimit.value);
   }
 }

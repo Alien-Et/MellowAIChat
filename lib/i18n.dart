@@ -22,14 +22,6 @@ class AppTranslations extends Translations {
       'sign_up': 'Sign up',
       // Chat
       'how_can_i_help': 'How can I help you my friend?',
-      'brainstorm_names': 'Brainstorm names',
-      'brainstorm_names_sub': 'for my fantasy football team with a frog theme',
-      'suggest_codenames': 'Suggest some codenames',
-      'suggest_codenames_sub': 'for a project introducing flexible work arrangements',
-      'write_sql': 'Write a SQL query',
-      'write_sql_sub': 'that adds a "status" column to an "orders" table',
-      'explain_popcorn': 'Explain why popcorn pops',
-      'explain_popcorn_sub': 'to a kid who loves watching it in the microwave',
       'ask_anything': 'Ask me anything...',
       // Settings
       'settings': 'Settings',
@@ -42,6 +34,7 @@ class AppTranslations extends Translations {
       'menus_title': 'Menus',
       'language': 'Language',
       'sign_out': 'Sign Out',
+      'prompt': 'Prompt',
     },
     'zh_CN': {
       // Register
@@ -74,6 +67,7 @@ class AppTranslations extends Translations {
       'menus_title': '菜单',
       'language': '语言',
       'sign_out': '退出登录',
+      'prompt': '提示词',
     },
   };
 }

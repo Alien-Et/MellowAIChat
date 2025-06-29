@@ -1,6 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'Model.dart';
+
+class ChatMessage {
+  final String role;
+  final String content;
+  ChatMessage({required this.role, required this.content});
+}
 
 class ChatController extends GetxController {
   var ask = TextEditingController();

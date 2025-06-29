@@ -19,10 +19,10 @@ class ChatPage extends StatelessWidget {
     final content = chatController.ask.text.trim();
     if (content.isEmpty) return;
 
-
     chatController.messages.add(ChatMessage(role: 'user', content: content));
     chatController.ask.clear();
 
+    // 固定上下文条数限制为20
     final contextMessages = <Map<String, String>>[];
     final history = chatController.messages.length > 20
         ? chatController.messages.sublist(chatController.messages.length - 20)
@@ -38,7 +38,6 @@ class ChatPage extends StatelessWidget {
     chatController.messages.add(ChatMessage(role: 'assistant', content: ''));
     int aiIndex = chatController.messages.length - 1;
     String aiContent = '';
-
 
     await for (final msg in ChatApi.sendChatRequestStream(
       token: token,
@@ -76,10 +75,12 @@ class ChatPage extends StatelessWidget {
           icon: Icon(Icons.menu, color: Colors.black87),
           onPressed: () => menuController.showMenu(context),
         ),
-        title: const Text(
-          'Deepseek-R1',
-          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-        ),
+        title: Obx(() => Text(
+          settingsController.model.value.isNotEmpty
+              ? settingsController.model.value
+              : 'Deepseek-R1',
+          style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+        )),
         centerTitle: true,
         actions: [
           IconButton(

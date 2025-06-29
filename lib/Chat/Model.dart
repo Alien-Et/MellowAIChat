@@ -1,11 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-class ChatMessage {
-  final String role;
-  final String content;
-  ChatMessage({required this.role, required this.content});
-}
+import 'Controller.dart';
 
 class ChatApi {
   static Future<String> sendChatRequest({required String token, required String model, required String content}) async {

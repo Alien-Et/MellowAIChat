@@ -33,7 +33,7 @@ class MenuView extends StatelessWidget {
             title: Text('settings'.tr),
             onTap: () {
               Navigator.of(context).pop();
-              Future.delayed(const Duration(milliseconds: 200), () {
+              Future.delayed(const Duration(milliseconds: 100), () {
                 showDialog(
                   context: context,
                   builder: (context) => Settings(),
@@ -42,8 +42,8 @@ class MenuView extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.language),
-            title: Text('language'.tr),
+            leading: const Icon(Icons.book),
+            title: Text('prompt'.tr),
             onTap: () {},
           ),
           ListTile(
