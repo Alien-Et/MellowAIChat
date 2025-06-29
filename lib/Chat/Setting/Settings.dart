@@ -51,16 +51,16 @@ class _SettingsState extends State<Settings> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 24),
-              const Text('设置', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('settings'.tr, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
-              const TabBar(
+               TabBar(
                 labelColor: Colors.blue,
                 unselectedLabelColor: Colors.black54,
                 indicatorColor: Colors.blue,
                 tabs: [
-                  Tab(text: '模型'),
-                  Tab(text: '显示'),
-                  Tab(text: '对话'),
+                  Tab(text: 'model'.tr),
+                  Tab(text: 'display'.tr),
+                  Tab(text: 'chat'.tr),
                 ],
               ),
               Expanded(
@@ -75,7 +75,7 @@ class _SettingsState extends State<Settings> {
                                 const SizedBox(height: 24),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('模型提供方:', style: TextStyle(fontSize: 16)),
+                                  child: Text('api_url'.tr, style: TextStyle(fontSize: 16)),
                                 ),
                                 const SizedBox(height: 8),
                                 SizedBox(
@@ -95,7 +95,7 @@ class _SettingsState extends State<Settings> {
                                 const SizedBox(height: 16),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('API 密钥', style: TextStyle(fontSize: 16)),
+                                  child: Text('token'.tr, style: TextStyle(fontSize: 16)),
                                 ),
                                 const SizedBox(height: 8),
                                 TextFormField(
@@ -117,7 +117,7 @@ class _SettingsState extends State<Settings> {
                                       showDialog(
                                         context: context,
                                         builder: (_) => AlertDialog(
-                                          title: const Text('连接测试失败'),
+                                          title:  Text('connect_test_failed'.tr),
                                           content: Text(settingsModel.error.value),
                                           actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('确定'))],
                                         ),
@@ -126,8 +126,8 @@ class _SettingsState extends State<Settings> {
                                       showDialog(
                                         context: context,
                                         builder: (_) => AlertDialog(
-                                          title: const Text('连接测试成功'),
-                                          content: Text('模型数量: ${settingsModel.models.length}'),
+                                          title:  Text('connect_test_success'.tr),
+                                          content: Text('${'model_count'.tr}: ${settingsModel.models.length}'),
                                           actions: [TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('确定'))],
                                         ),
                                       );
@@ -135,11 +135,11 @@ class _SettingsState extends State<Settings> {
                                   },
                                   child: settingsModel.loading.value
                                       ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                                      : const Text('连接测试'),
+                                      :  Text('connect_test'.tr),
                                 )),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('模型', style: TextStyle(fontSize: 16)),
+                                  child: Text('model'.tr, style: TextStyle(fontSize: 16)),
                                 ),
                                 const SizedBox(height: 8),
                                 Obx(() {
@@ -195,7 +195,7 @@ class _SettingsState extends State<Settings> {
 
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('上下文消息数量上限', style: TextStyle(fontSize: 16)),
+                                  child: Text('context_limit'.tr, style: TextStyle(fontSize: 16)),
                                 ),
                                 Obx(() => Row(
                                   children: [
@@ -223,7 +223,7 @@ class _SettingsState extends State<Settings> {
                                 // 语言切换选择框
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text('界面语言', style: TextStyle(fontSize: 16)),
+                                  child: Text('language'.tr, style: TextStyle(fontSize: 16)),
                                 ),
                                 const SizedBox(height: 8),
                                 Obx(() => DropdownButtonFormField<Locale>(
@@ -289,7 +289,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('取消'),
+                      child:  Text('cancel'.tr),
                     ),
                     const SizedBox(width: 8),
                     ElevatedButton(
@@ -298,7 +298,7 @@ class _SettingsState extends State<Settings> {
                         await settingsController.SaveConfig();
                         Navigator.of(context).pop();
                       },
-                      child: const Text('保存'),
+                      child:  Text('save'.tr),
                     ),
                   ],
                 ),
